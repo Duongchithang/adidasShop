@@ -1,7 +1,7 @@
 ﻿@page
 @model LoginModel
 @{
-    ViewData["Title"] = "Zaloguj się";
+    ViewData["Title"] = "Login";
 }
 
 <div class="container">
@@ -33,15 +33,15 @@
                 </div>
                 <div class="field">
                     <div class="control has-text-centered">
-                        <button type="submit" class="button is-dark is-outlined">Zaloguj</button>
+                        <button type="submit" class="button is-dark is-outlined">Login</button>
                     </div>
                 </div>
                 <div>
-                    <div class="divider">LUB</div>
+                    <div class="divider">SimpleShop</div>
                 </div>
                 <div class="field">
                     <div class="control">
-                        Nie posiadasz jeszcze konta? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Zarejestruj się.</a>
+                        Bạn chưa có tài khoản? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">.Register</a>
                     </div>
                 </div>
             </form>

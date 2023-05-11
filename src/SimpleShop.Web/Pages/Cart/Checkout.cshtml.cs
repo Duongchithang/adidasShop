@@ -1,11 +1,14 @@
 ﻿using MediatR;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+
 using SimpleShop.Application.Commands.Carts;
 using SimpleShop.Application.Commands.Orders;
 using SimpleShop.Application.Queries.Carts;
 using SimpleShop.Domain.Entities;
+
 using System.ComponentModel.DataAnnotations;
 
 #nullable disable
@@ -29,39 +32,39 @@ namespace SimpleShop.Web.Pages.Cart
 
         public class InputModel
         {
-            [Required(ErrorMessage = "Imię jest wymagane.")]
-            [RegularExpression(@"^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage = "Błędny format imienia.")]
+            [Required(ErrorMessage = "Tên phải bắt buộc")]
+            [RegularExpression(@"^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage = "Định dạng tên không chính xác")]
             public string FirstName { get; set; }
 
-            [Required(ErrorMessage = "Nazwisko jest wymagane.")]
-            [RegularExpression(@"^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage = "Błędny format nazwiska.")]
+            [Required(ErrorMessage = "Họ phải bắt buộc")]
+            [RegularExpression(@"^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage = "Định dạng họ không chính xác")]
             public string LastName { get; set; }
 
-            [Required(ErrorMessage = "Nazwa ulicy jest wymagana.")]
-            [RegularExpression(@"^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage = "Błędny format nazwy ulicy.")]
+            [Required(ErrorMessage = "Địa chỉ phải bắt buộc")]
+            [RegularExpression(@"^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage = "Địa chỉ không đúng định dạng")]
             public string Street { get; set; }
 
-            [Required(ErrorMessage = "Numer budynku/lokalu jest wymagany.")]
-            [RegularExpression(@"[1-9]\d*(\s*[-/]\s*[1-9]\d*)?(\s?[a-zA-Z])?", ErrorMessage = "Błędny format numeru budynku/lokalu.")]
+            [Required(ErrorMessage = "Sô nhà bắt buộc")]
+            [RegularExpression(@"[1-9]\d*(\s*[-/]\s*[1-9]\d*)?(\s?[a-zA-Z])?", ErrorMessage = "Số nhà không đúng định dạng")]
             public string Apartment { get; set; }
 
-            [Required(ErrorMessage = "Nazwa miejscowości jest wymagana.")]
-            [RegularExpression(@"^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage = "Błędny format nazwy miejscowości.")]
+            [Required(ErrorMessage = "Thành phố bắt buộc")]
+            [RegularExpression(@"^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage = "Thành phố không chính xác")]
             public string City { get; set; }
 
-            [Required(ErrorMessage = "Kod pocztowy jest wymagany.")]
-            [RegularExpression(@"^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$", ErrorMessage = "Błędny format kodu pocztowego.")]
+            [Required(ErrorMessage = "Mã bưu chính bắt buộc")]
+            [RegularExpression(@"^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$", ErrorMessage = "Mã bưu chính không đúng định dạng")]
             public string PostalCode { get; set; }
 
-            [Required(ErrorMessage = "Numer telefonu komórkowego jest wymagany.")]
-            [RegularExpression(@"(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)", ErrorMessage = "Błędny format numeru komórkowego.")]
+            [Required(ErrorMessage = "Số điện thoại bắt buộc")]
+            [RegularExpression(@"(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)", ErrorMessage = "Số điện thoại không đúng định dạng")]
             public string Phone { get; set; }
 
-            [Required(ErrorMessage = "Adres e-mail jest wymagany.")]
-            [EmailAddress(ErrorMessage = "Błędny format adresu e-mail.")]
+            [Required(ErrorMessage = "Email bắt buộc")]
+            [EmailAddress(ErrorMessage = "Email không đúng định dạng")]
             public string Email { get; set; }
 
-            [Required(ErrorMessage = "Metoda płatności jest wymagana.")]
+            [Required(ErrorMessage = "Phương thức thanh toán bắt buộc")]
             public string PaymentMethod { get; set; }
         }
 

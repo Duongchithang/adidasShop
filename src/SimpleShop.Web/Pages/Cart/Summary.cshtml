@@ -1,7 +1,7 @@
 ﻿@page "{orderId:Guid}"
 @model SimpleShop.Web.Pages.Cart.SummaryModel
 @{
-    ViewData["Title"] = $"Zamówienie #{Model.Order.Number}";
+    ViewData["Title"] = $"Đặt hàng #{Model.Order.Number}";
 }
 
 <div class="container has-text-centered">
@@ -11,8 +11,8 @@
             </span>
         </div>
         <div>
-            <p class="title has-text-weight-medium">Dziękujemy, @Model.Order.Details.FirstName!</p>
-            <p class="subtitle">Zamówienie #@Model.Order.Number zostało złożone.</p>
-            <a class="button is-outlined" asp-area="" asp-page="/Orders/Index">Moje zamówienia</a>
+            <p class="title has-text-weight-medium">Cảm ơn, @Model.Order.Details.FirstName!</p>
+            <p class="subtitle">Đặt hàng #@Model.Order.Number đã được lưu.</p>
+            <a class="button is-outlined" asp-area="" asp-page="/Orders/Index">My order</a>
         </div>
 </div>

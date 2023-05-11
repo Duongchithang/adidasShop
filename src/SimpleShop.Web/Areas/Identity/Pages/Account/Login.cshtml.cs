@@ -3,10 +3,12 @@
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+
 using SimpleShop.Domain.Entities;
 
 namespace SimpleShop.Web.Areas.Identity.Pages.Account
@@ -58,25 +60,25 @@ namespace SimpleShop.Web.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required(ErrorMessage = "Adres e-mail jest wymagany.")]
-            [EmailAddress(ErrorMessage = "Błędny format adresu e-mail.")]
-            [Display(Name = "Adres e-mail")]
+            [Required(ErrorMessage = "Email is required")]
+            [EmailAddress(ErrorMessage = "Email is not correct")]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required(ErrorMessage = "Hasło jest wymagane.")]
+            [Required(ErrorMessage = "Password is required")]
             [DataType(DataType.Password)]
-            [Display(Name = "Hasło")]
+            [Display(Name = "Password")]
             public string Password { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Display(Name = "Zapamiętaj mnie")]
+            [Display(Name = "Remember me")]
             public bool RememberMe { get; set; }
         }
 

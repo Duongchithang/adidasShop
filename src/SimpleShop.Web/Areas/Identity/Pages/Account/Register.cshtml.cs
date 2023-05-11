@@ -10,7 +10,9 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+
 using SimpleShop.Application.Commands.Carts;
 using SimpleShop.Domain.Entities;
 
@@ -80,19 +83,19 @@ namespace SimpleShop.Web.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required(ErrorMessage = "Adres e-mail jest wymagany.")]
-            [EmailAddress(ErrorMessage = "Błędny format adresu e-mail.")]
-            [Display(Name = "Adres e-mail")]
+            [Required(ErrorMessage = "Email is required")]
+            [EmailAddress(ErrorMessage = "Email is correct")]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required(ErrorMessage = "Hasło jest wymagane.")] 
-            [StringLength(100, ErrorMessage = "Hasło musi składać się z przynajmniej {2} znaków.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Password is required")]
+            [StringLength(100, ErrorMessage = "Password longer than 6 and less than 18", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Hasło")]
+            [Display(Name = "Password")]
             public string Password { get; set; }
 
             /// <summary>
@@ -100,8 +103,8 @@ namespace SimpleShop.Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Potwierdź hasło")]
-            [Compare("Password", ErrorMessage = "Hasło oraz potwierdzone hasło nie zgadzają się.")]
+            [Display(Name = "Confirm Password")]
+            [Compare("Password", ErrorMessage = "password incorrect")]
             public string ConfirmPassword { get; set; }
         }
 

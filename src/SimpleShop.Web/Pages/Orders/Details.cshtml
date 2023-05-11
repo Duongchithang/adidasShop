@@ -1,12 +1,12 @@
 ﻿@page "{id:Guid}"
 @model SimpleShop.Web.Pages.Orders.DetailsModel
 @{
-    ViewData["Title"] = $"Zamówienie #{Model.Order.Number}";
+    ViewData["Title"] = $"Đặt hàng #{Model.Order.Number}";
 }
 
 <div class="container p-5">
     <div class="block">
-        <h1 class="title">Zamówienie #@Model.Order.Number</h1>
+        <h1 class="title">Đặt hàng #@Model.Order.Number</h1>
     </div>
     <div class="columns">
         <div class="column is-9">
@@ -21,9 +21,9 @@
                     <div class="media-content">
                         <div class="content">
                             <p class="is-size-5 mb-0">@item.Product.Name</p>
-                            <p class="mb-0">Rozmiar: @item.Size</p>
-                            <p class="mb-0 has-text-grey">Ilość: @item.Quantity</p>
-                            <p class="mb-0 is-size-5 has-text-weight-medium">@(item.Product.Price * item.Quantity) zł</p>
+                            <p class="mb-0">Size: @item.Size</p>
+                            <p class="mb-0 has-text-grey">Số lượng: @item.Quantity</p>
+                            <p class="mb-0 is-size-5 has-text-weight-medium">@(item.Product.Price * item.Quantity) $</p>
                         </div>
                     </div>
                 </article>
@@ -32,15 +32,15 @@
         <div class="column is-3">
             <div class="is-flex is-justify-content-space-between">
                 <p class="subtitle">Status</p>
-                <p class="subtitle">W REALIZACJI</p>
+                <p class="subtitle">Đang duyệt</p>
             </div>
             <div class="is-flex is-justify-content-space-between">
-                <p class="subtitle">Płatność</p>
+                <p class="subtitle">Phương thức thanh toán</p>
                 <p class="subtitle">@Model.Order.Details.PaymentMethod.ToUpper()</p>
             </div>
             <div class="is-flex is-justify-content-space-between">
-                <p class="subtitle">Suma</p>
-                <p class="subtitle has-text-weight-medium">@Model.Order.Details.Total ZŁ</p>
+                <p class="subtitle">Tổng</p>
+                <p class="subtitle has-text-weight-medium">@Model.Order.Details.Total $</p>
             </div>
             <div class="has-border-y py-5">
                 <p class="mb-2 has-text-weight-medium is-size-5">@($"{Model.Order.Details.FirstName} {Model.Order.Details.LastName}")</p>
@@ -49,7 +49,7 @@
                 <p>+48 @Model.Order.Details.Phone</p>
             </div>
             <div class="has-text-centered mt-5">
-                <button class="button is-success">Śledzenie zamówienia</button>
+                <button class="button is-success">Theo dõi đơn hàng</button>
             </div>
         </div>
     </div>

@@ -1,30 +1,34 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Strona główna";
+    ViewData["Title"] = "Adidas Shop";
 }
-<div class="container">
-    @if(Model.Products.Any())
+<div>
+    @await Component.InvokeAsync("Banner")
+    <div class="container">
+      @*<h1 class="is-size-5 text-center">Danh sách sản phẩm</h1>*@
+        @if(Model.Products.Any())
     {
         <div class="columns is-multiline">
             @foreach(var product in Model.Products)
             {
-                <div class="column is-one-quarter">
-                    <div class="card">
-                        <div class="card-image">
-                            <a asp-route-id="@product.Id" asp-page="Products/Index" asp-area="">
-                                <figure class="image is-square">
-                                    <img src="~/assets/@product.ImagePath">
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="card-content pt-1 pl-0">
-                            <p class="is-size-5">@product.Name</p>
-                            <p class="has-text-weight-medium">@product.Price zł</p>
-                        </div>
+            <div class="column is-one-quarter">
+                <div class="card">
+                    <div class="card-image">
+                        <a asp-route-id="@product.Id" asp-page="Products/Index" asp-area="">
+                            <figure class="image is-square">
+                                <img src="~/assets/@product.ImagePath">
+                            </figure>
+                        </a>
+                    </div>
+                    <div class="card-content pt-1 pl-0">
+                        <p class="is-size-5">@product.Name</p>
+                        <p class="has-text-weight-medium">@product.Price $</p>
                     </div>
                 </div>
+            </div>
             }
         </div>
     }
+    </div>
 </div>

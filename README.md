@@ -25,15 +25,6 @@ Simple but fully functional online store built with .NET Core 6.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/Zimeek/SimpleShop.git
+   git clone repo
    ```
 2. Configure connection string in appsettings.json (SimpleShop.Web)
-
-## Screenshots
-<p align="center">
-   <img src="assets/usage1.png" style="margin-bottom: 20px;" />
-   <img src="assets/usage2.png" style="margin-bottom: 20px;" />
-   <img src="assets/usage3.png" style="margin-bottom: 20px;" />
-   <img src="assets/usage4.png"/>
-</p>
-

@@ -17,6 +17,12 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+a {
+    text-decoration: none;
+}
+
+
+
 #wrapper {
     flex: 1;
 }

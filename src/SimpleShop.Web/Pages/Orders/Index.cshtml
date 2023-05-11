@@ -1,14 +1,14 @@
 ﻿@page
 @model SimpleShop.Web.Pages.Orders.IndexModel
 @{
-    ViewData["Title"] = "Zamówienia";
+    ViewData["Title"] = "Đơn đặt hàng";
 }
 
 <div class="container">
     @if(Model.Orders.Any())
     {
         <div class="block has-text-centered-mobile">
-            <h1 class="title">Moje zamówienia</h1>
+            <h1 class="title">Đơn đặt hàng của tôi</h1>
         </div>
         <div class="list has-visible-pointer-controls">
             @foreach(var order in Model.Orders)
@@ -16,15 +16,15 @@
                 <div class="list-item p-5">
                     <div class="list-item-content">
                         <div class="list-item-title">
-                            Zamówienie #@order.Number
+                            Đặt hàng #@order.Number
                         </div>
                         <div class="list-item-description">
-                            Data zamówienia: @order.CreatedDate.ToString("dd MMMM, yyyy H:mm")
+                            Ngày đặt hàng: @order.CreatedDate
                         </div>
                     </div>
                     <div class="list-item-controls">
                         <div class="is-right">
-                            <a class="button is-dark" asp-page="Details" asp-route-id="@order.Id">Szczegóły</a>
+                            <a class="button is-dark" asp-page="Details" asp-route-id="@order.Id">Chi tiết</a>
                         </div>
                     </div>
                 </div>
@@ -39,8 +39,8 @@
             </span>
         </div>
         <div class="has-text-centered">
-            <p class="subtitle has-text-weight-medium">Wygląda na to, że nie złożyłeś jeszcze żadnego zamówienia!</p>
-            <a class="button is-outlined" asp-area="" asp-page="/Index">Powrót do sklepu</a>
+            <p class="subtitle has-text-weight-medium">Có vẻ như bạn chưa đặt đơn hàng nào</p>
+            <a class="button is-outlined" asp-area="" asp-page="/Index">Back Shop</a>
         </div>
     }
 </div>

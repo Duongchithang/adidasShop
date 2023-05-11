@@ -20,21 +20,24 @@
             </div>
             <div class="column is-4">
                 <p class="is-size-3">@Model.Product.Name</p>
-                <p class="is-size-4 has-text-weight-medium">@Model.Product.Price zł</p>
+                <p class="is-size-4 has-text-weight-medium">@Model.Product.Price $</p>
                 <div class="my-5 py-5 has-border-y">
                     @if(SignInManager.IsSignedIn(User))
                     {
                         <form method="post" asp-page="/Cart/Index" asp-area="" asp-page-handler="AddItem" asp-route-productId="@Model.Product.Id" asp-route-size="@Model.Size">
                             <div class="field">
-                                <label class="label">Rozmiar</label>
+                                <label class="label">Pick Size</label>
                                 <div class="control">
                                     <div class="select">
                                         <select asp-for="Size">
+
+                                            <option value="37">37</option>
+                                            <option value="38">38</option>
+                                            <option value="39">39</option>
+                                            <option value="40">40</option>
+                                            <option value="41">41</option>
                                             <option selected value="42">42</option>
                                             <option value="43">43</option>
-                                            <option value="44">44</option>
-                                            <option value="45">45</option>
-                                            <option value="46">46</option>
                                         </select>
                                     </div>
                                 </div>
@@ -42,7 +45,7 @@
                             <div class="field">
                                 <div class="control">
                                     <button class="button is-dark" type="submit">
-                                        Dodaj do koszyka
+                                        Thêm vào giỏ hàng
                                     </button>
                                 </div>
                             </div>
@@ -51,14 +54,14 @@
                                     <span class="icon">
                                         <i class='bx bx-package'></i>
                                     </span>
-                                    <span class="is-underlined">Darmowa dostawa</span>
+                                    <span class="is-underlined">Miễn phí giao hàng</span>
                                 </span>
                             </div>
                         </form>
                     }
                     else
                     {
-                        <p class="has-text-danger">Zaloguj się aby kupić @Model.Product.Name</p>
+                        <p class="has-text-danger">Đăng nhập để mua @Model.Product.Name</p>
                     }
                 </div>           
                 <p class="is-size-5 block">Opis</p>
@@ -69,7 +72,7 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
         </div>
         <div class="block has-text-centered">
             <p class="is-size-4">
-                Podobne produkty
+                Sản phẩm liên quan
             </p>
         </div>
         <div class="columns">        
@@ -88,7 +91,7 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
                             </div>
                             <div class="card-content pt-1 pl-0">
                                 <p class="is-size-5">@relatedProduct.Name</p>
-                                <p class="has-text-weight-medium">@relatedProduct.Price zł</p>
+                                <p class="has-text-weight-medium">@relatedProduct.Price $</p>
                             </div>
                         </div>
                     </div>
