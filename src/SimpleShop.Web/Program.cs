@@ -1,6 +1,8 @@
 using MediatR;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 using SimpleShop.Domain.Entities;
 using SimpleShop.Infrastructure.Database;
 using SimpleShop.Web.Extensions;
@@ -18,11 +20,14 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
 builder.Services.AddMediatR(typeof(SimpleShop.Application.Queries.Products.GetProducts));
 
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("IsAuthorized", policy => policy.RequireAuthenticatedUser());
+    options.AddPolicy("Admin", policy =>
+       policy.RequireRole("Admin"));
 });
 
 builder.Services.AddRazorPages(options =>

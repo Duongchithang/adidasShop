@@ -6,14 +6,14 @@
 <div>
     @await Component.InvokeAsync("Banner")
     <div class="container">
-      @*<h1 class="is-size-5 text-center">Danh sách sản phẩm</h1>*@
+      <h1 class="fs-3 text-center">Danh sách sản phẩm !</h1>
         @if(Model.Products.Any())
     {
-        <div class="columns is-multiline">
+        <div class="row mt-5">
             @foreach(var product in Model.Products)
             {
-            <div class="column is-one-quarter">
-                <div class="card">
+            <div class="col-3">
+                <div style="border : none" class="card">
                     <div class="card-image">
                         <a asp-route-id="@product.Id" asp-page="Products/Index" asp-area="">
                             <figure class="image is-square">
@@ -22,8 +22,8 @@
                         </a>
                     </div>
                     <div class="card-content pt-1 pl-0">
-                        <p class="is-size-5">@product.Name</p>
-                        <p class="has-text-weight-medium">@product.Price $</p>
+                         <p class="fs-5 fw-normal">@product.Name</p>
+                        <p class="fs-5 fst-normal">@product.Price $</p>
                     </div>
                 </div>
             </div>

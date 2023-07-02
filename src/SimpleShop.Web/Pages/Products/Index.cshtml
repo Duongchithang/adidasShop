@@ -81,7 +81,7 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
                 @foreach(var relatedProduct in Model.RelatedProducts)
                 {
                     <div class="column is-flex is-justify-content-center">
-                        <div class="card">
+                        <div style="border :none" class="card">
                             <div class="card-image">
                                 <a asp-route-id="@relatedProduct.Id" asp-page="/Products/Index" asp-area="">
                                     <figure class="image" style="width: 256px; height: 256px;">

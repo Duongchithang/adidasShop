@@ -2,14 +2,15 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System.ComponentModel.DataAnnotations;
-
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using SimpleShop.Domain.Entities;
+using SimpleShop.Infrastructure.Database;
+
+using System.ComponentModel.DataAnnotations;
 
 namespace SimpleShop.Web.Areas.Identity.Pages.Account
 {
@@ -17,11 +18,17 @@ namespace SimpleShop.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly RoleManager<IdentityRole> roleManager;
+        //private readonly UserManager<IdentityUser> userManager;
+        private readonly ApplicationDbContext context;
+        private readonly ApplicationUser applicationUser;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, RoleManager<IdentityRole> _roleManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            this.roleManager = _roleManager;
+            this.applicationUser = applicationUser;
         }
 
         /// <summary>
@@ -110,8 +117,18 @@ namespace SimpleShop.Web.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
                 if (result.Succeeded)
                 {
+                    var isUserLogin = await _signInManager.UserManager.FindByNameAsync(Input.Email);
+                    if (isUserLogin != null)
+                    {
+                        bool isAdmin = await _signInManager.UserManager.IsInRoleAsync(isUserLogin, "Admin");
+                        if (isAdmin)
+                        {
+                            return LocalRedirect("~/admin");
+                        }
+                    }
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
