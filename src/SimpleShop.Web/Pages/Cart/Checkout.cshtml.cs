@@ -10,6 +10,11 @@ using SimpleShop.Application.Queries.Carts;
 using SimpleShop.Domain.Entities;
 
 using System.ComponentModel.DataAnnotations;
+using Net.payOS;
+using Net.payOS.Types;
+using System.Security.Policy;
+using System;
+using SimpleShop.Application.Queries.Products;
 
 #nullable disable
 
@@ -19,16 +24,30 @@ namespace SimpleShop.Web.Pages.Cart
     {
         private readonly IMediator _mediator;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CheckoutModel(IMediator mediator, UserManager<ApplicationUser> userManager)
+        public CheckoutModel(IMediator mediator, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
             _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public Domain.Entities.Cart Cart { get; set; }
         [BindProperty]
         public InputModel Input { get; set; }
+
+        public string clientId = "6fc78d5c-5a42-46c3-8d3e-3648f1e176db";
+        public string apiKey = "0fd0be5a-201d-479b-9b80-b09425472a79";
+
+        public string checksumKey = "3058928b5edc6597b004e215d1a8c2008644ee6c7fe4c460dd9c1ca2bf538247";
+
+        public string cancelUrl { get; set; }
+
+        public string returnUrl { get; set; }
+
+        private static readonly Random random = new Random();
+
 
         public class InputModel
         {
@@ -79,7 +98,29 @@ namespace SimpleShop.Web.Pages.Cart
             }
             return Page();
         }
+     
 
+        public async Task<IActionResult> paymentMethod(string idUrl, List<Product> product)
+        {
+            Console.WriteLine("data product >>>" + product[0].Name);
+            Random random = new Random();
+            int orderCode = random.Next(1,10000000);
+            var httpResponse = _httpContextAccessor.HttpContext.Response;
+            PayOS payOS = new PayOS(clientId, apiKey, checksumKey);
+            List<ItemData> items = new List<ItemData>();
+            foreach (var x in product)
+            {
+                ItemData item = new ItemData(x.Name, 2000, 2000);
+                items.Add(item);
+            }
+
+            PaymentData paymentData = new PaymentData(orderCode, 2000, "Thanh toan don hang",
+                items, cancelUrl = "https://localhost:7157/Error", returnUrl = $"https://localhost:7157/Cart/Summary/{idUrl}");
+
+            CreatePaymentResult createPayment = await payOS.createPaymentLink(paymentData);
+            Console.WriteLine("Create Payment >>>>>>>>>>>>" + createPayment);
+            return new RedirectResult(createPayment.checkoutUrl);
+        }
         public async Task<IActionResult> OnPostAsync()
         {
             var userId = _userManager.GetUserId(User);
@@ -103,9 +144,12 @@ namespace SimpleShop.Web.Pages.Cart
             };
 
             var success = await _mediator.Send(new CreateOrder.Command(order));
+           
             if (success)
             {
+
                 var orderItems = new List<OrderItem>();
+                var getProducts = new List<Product>();
                 foreach (var cartItem in Cart.Items)
                 {
                     orderItems.Add(new OrderItem
@@ -118,6 +162,13 @@ namespace SimpleShop.Web.Pages.Cart
                     });
                 }
 
+                for (var i = 0; i < orderItems.Count; i++)
+                {
+                    var valueProduct = await _mediator.Send(new GetProduct.Query(orderItems[i].ProductId));
+                    getProducts.Add(valueProduct);
+                }
+
+                
                 var orderDetails = new OrderDetails
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -133,11 +184,16 @@ namespace SimpleShop.Web.Pages.Cart
                     PaymentMethod = Input.PaymentMethod,
                     Total = Cart.GetTotal()
                 };
+               return await paymentMethod(order.Id, getProducts);
+
 
                 await _mediator.Send(new AddOrderItems.Command(orderItems));
                 await _mediator.Send(new AddOrderDetails.Command(orderDetails));
                 await _mediator.Send(new ClearCart.Command(Cart.Id));
+
             }
+             
+           
 
             return RedirectToPage("Summary", new { orderId = order.Id });
         }
